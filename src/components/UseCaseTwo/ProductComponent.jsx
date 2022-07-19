@@ -30,6 +30,10 @@ export function ProductComponent(props) {
         }
     }
 
+    const handleRemoveFromCart = () => {
+        props.onRemove(id);
+    }
+
 
     return (
         <div>
@@ -46,6 +50,11 @@ export function ProductComponent(props) {
                 onClick={handleDecrement}
             >
                 -
+            </button>
+            &nbsp;&nbsp;
+            <button className="btn btn-danger btn-sm m-2"
+                onClick={handleRemoveFromCart}>
+                Remove From Cart
             </button>
         </div>
     )

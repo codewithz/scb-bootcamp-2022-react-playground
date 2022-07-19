@@ -14,6 +14,13 @@ export function ProductListComponent() {
 
     const [products, setProducts] = useState(productList);
 
+    const removeFromCart = (productId) => {
+        const filteredProducts = products.filter(
+            (product) => (product.id !== productId)
+        );
+
+        setProducts(filteredProducts)
+    }
 
     return (
         <div>
@@ -21,7 +28,11 @@ export function ProductListComponent() {
                 {
                     products.map((product) =>
                         // <li key={product.id}>{product.name} - {product.quantity}</li>
-                        <ProductComponent key={product.id} product={product} />
+                        <ProductComponent
+                            key={product.id}
+                            product={product}
+                            onRemove={removeFromCart}
+                        />
 
                     )
                 }
