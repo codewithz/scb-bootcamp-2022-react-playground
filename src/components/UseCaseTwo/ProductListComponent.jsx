@@ -22,6 +22,25 @@ export function ProductListComponent() {
         setProducts(filteredProducts)
     }
 
+    const handleIncrement = (product) => {
+        const productsClone = [...products];  //Making a copy of products which is in state.
+        const index = productsClone.indexOf(product); //Give me the index of the product we are searching
+        productsClone[index] = { ...product } // Taking the incoming product object and assigning it at the given index
+        productsClone[index].quantity++; //Updating the quantity of the product in array by 1;
+
+        setProducts(productsClone); //Updating the state with new copy of products in state
+
+    }
+    const handleDecrement = (product) => {
+        const productsClone = [...products];  //Making a copy of products which is in state.
+        const index = productsClone.indexOf(product); //Give me the index of the product we are searching
+        productsClone[index] = { ...product } // Taking the incoming product object and assigning it at the given index
+        productsClone[index].quantity--; //Updating the quantity of the product in array by 1;
+
+        setProducts(productsClone); //Updating the state with new copy of products in state
+
+    }
+
     return (
         <div>
             <ul>
@@ -32,6 +51,9 @@ export function ProductListComponent() {
                             key={product.id}
                             product={product}
                             onRemove={removeFromCart}
+                            onIncrement={handleIncrement}
+                            onDecrement={handleDecrement}
+                        // nameOfProp={actualValue}
                         />
 
                     )

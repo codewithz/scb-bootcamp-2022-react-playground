@@ -21,13 +21,11 @@ export function ProductComponent(props) {
     }
 
     const handleIncrement = () => {
-        // setQuantity(quantity + 1);
+        props.onIncrement(props.product)
     }
 
     const handleDecrement = () => {
-        // if (productQuantity > 0) {
-        //     setQuantity(quantity - 1)
-        // }
+        props.onDecrement(props.product)
     }
 
     const handleRemoveFromCart = () => {
