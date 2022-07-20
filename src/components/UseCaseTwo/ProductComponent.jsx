@@ -4,16 +4,16 @@ export function ProductComponent(props) {
 
     const { name, quantity: productQuantity, id } = props.product;
 
-    const [productName, setProductName] = useState(name)
-    const [quantity, setQuantity] = useState(productQuantity)
+    // const [productName, setProductName] = useState(name)
+    // const [quantity, setQuantity] = useState(productQuantity)
 
     const badgeClasses = () => {
         let classes = "badge m-2 badge-";
-        classes += (quantity === 0) ? 'danger' : 'warning';
+        classes += (productQuantity === 0) ? 'danger' : 'warning';
         return classes;
     }
 
-    const formatQuantity = () => quantity === 0 ? 'Zero' : quantity
+    const formatQuantity = () => productQuantity === 0 ? 'Zero' : productQuantity
 
     const styles = {
         fontSize: 20,
@@ -21,13 +21,13 @@ export function ProductComponent(props) {
     }
 
     const handleIncrement = () => {
-        setQuantity(quantity + 1);
+        // setQuantity(quantity + 1);
     }
 
     const handleDecrement = () => {
-        if (quantity > 0) {
-            setQuantity(quantity - 1)
-        }
+        // if (productQuantity > 0) {
+        //     setQuantity(quantity - 1)
+        // }
     }
 
     const handleRemoveFromCart = () => {
@@ -37,7 +37,7 @@ export function ProductComponent(props) {
 
     return (
         <div>
-            <h4>{productName}</h4>
+            <h4>{name}</h4>
             <button
                 className="btn btn-primary btn-sm m-2"
                 onClick={handleIncrement}
