@@ -3,6 +3,7 @@ import './App.css';
 import { UseCaseOneHome } from './components/UseCaseOne/UseCaseOneHome';
 import { UseCaseTwoHome } from './components/UseCaseTwo/UseCaseTwoHome';
 import { Navbar } from './components/Navbar';
+import { UseCaseThreeHome } from './components/UseCaseThree/UseCaseThreeHome';
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       <h1>WELCOME TO Standard Chartered React Application</h1>
       <hr />
       {/* <UseCaseOneHome /> */}
-      <UseCaseTwoHome />
+      {/* <UseCaseTwoHome /> */}
+      <UseCaseThreeHome />
 
     </div>
   );
