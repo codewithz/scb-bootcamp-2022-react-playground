@@ -8,7 +8,11 @@ import customerData from './customers.json'
 export function CustomerList() {
 
     const [customers, setCustomers] = useState(customerData);
-    
+    const [selectedCustomer, setSelectedCustomer] = useState(null);
+
+    const onCustomerSelect = (customer) => {
+        setSelectedCustomer(customer)
+    }
 
     return (
         <div>
@@ -27,7 +31,9 @@ export function CustomerList() {
                     {
                         customers.map(
                             (customer) =>
-                                <tr key={customer.id}>
+                                <tr key={customer.id}
+                                    onClick={() => onCustomerSelect(customer)}
+                                >
                                     <td>{customer.id}</td>
                                     <td>{customer.firstName}</td>
                                     <td>{customer.lastName}</td>
@@ -49,7 +55,10 @@ export function CustomerList() {
 
 
                 <div className="col-md-4 m-2">
-                    <CustomerDetails />
+                    {
+                        selectedCustomer ?
+                            <CustomerDetails customer={selectedCustomer} /> : null
+                    }
                 </div>
             </div>
         </div >
