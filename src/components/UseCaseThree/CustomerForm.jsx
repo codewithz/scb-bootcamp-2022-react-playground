@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export function CustomerForm() {
+export function CustomerForm(props) {
 
     const blankCustomer = { id: 0, firstName: '', lastName: '', email: '' }
 
@@ -48,6 +48,12 @@ export function CustomerForm() {
         setCustomer(customerClone)
     }
 
+    const handleCustomerSaved = (event) => {
+        event.preventDefault()
+        props.onCustomerSaved(customer)
+        setCustomer(blankCustomer)
+    }
+
     return (
         <div>
             <p className="lead">Add Customer</p>
@@ -59,6 +65,7 @@ export function CustomerForm() {
                         name="firstName"
                         className="form-control"
                         placeholder="Enter First Name"
+                        value={customer.firstName}
                         onChange={handleInput}
                     />
                 </div>
@@ -68,6 +75,7 @@ export function CustomerForm() {
                         name="lastName"
                         className="form-control"
                         placeholder="Enter Last Name"
+                        value={customer.lastName}
                         onChange={handleInput}
                     />
                 </div>
@@ -79,10 +87,12 @@ export function CustomerForm() {
                         name="email"
                         className="form-control"
                         placeholder="Enter Email"
+                        value={customer.email}
                         onChange={handleInput}
                     />
                 </div>
-                <button className="btn btn-primary btn-sm m-2">
+                <button className="btn btn-primary btn-sm m-2"
+                    onClick={handleCustomerSaved}>
                     Save
                 </button>
             </form>

@@ -14,6 +14,15 @@ export function CustomerList() {
         setSelectedCustomer(customer)
     }
 
+    const addCustomer = (newCustomer) => {
+        const totalCustomers = customers.length;
+        newCustomer.id = totalCustomers + 1;
+        let customersClone = [...customers];
+        customersClone.push(newCustomer)
+
+        setCustomers(customersClone)
+    }
+
     return (
         <div>
             <p className="lead m-2">Customer List</p>
@@ -49,7 +58,7 @@ export function CustomerList() {
 
             <div className="row">
                 <div className="col-md-6 m-2">
-                    <CustomerForm />
+                    <CustomerForm onCustomerSaved={addCustomer} />
                 </div>
 
 
