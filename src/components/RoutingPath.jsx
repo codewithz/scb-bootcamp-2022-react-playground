@@ -10,6 +10,8 @@ import { AdminUsers } from './RoutingApp/admin/AdminUsers';
 import { UseCaseOneHome } from './UseCaseOne/UseCaseOneHome';
 import { UseCaseTwoHome } from './UseCaseTwo/UseCaseTwoHome';
 import { UseCaseThreeHome } from './UseCaseThree/UseCaseThreeHome';
+import { MaterialUIHome } from './MaterialUI/MaterialUIHome';
+import SignInSide from './MaterialUI/SignIn';
 
 export function RoutingPath() {
 
@@ -21,6 +23,8 @@ export function RoutingPath() {
                 <Route path="/posts/:year/:month?" component={Posts} />
                 <Route path="/admin-dashboard" component={AdminDashboard} />
                 <Route path="/not-found" component={NotFound} />
+                <Route path="/material-ui" component={MaterialUIHome} />
+                <Route path="/material-sign-in" component={SignInSide} />
 
                 <Route path="/use-case-one">
                     <UseCaseOneHome />

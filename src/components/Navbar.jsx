@@ -58,6 +58,22 @@ export function Navbar() {
                             UC-3
                         </Link>
                     </li>
+                    <li class="nav-item">
+
+                        <Link
+                            className="nav-link"
+                            to="/material-ui">
+                            Material UI
+                        </Link>
+                    </li>
+                    <li class="nav-item">
+
+                        <Link
+                            className="nav-link"
+                            to="/material-sign-in">
+                            Material UI- SIgn In
+                        </Link>
+                    </li>
 
                 </ul>
             </div>

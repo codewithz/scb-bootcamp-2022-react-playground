@@ -55,21 +55,38 @@ export function CustomerForm(props) {
 
     const validateProperty = (name, value) => {
 
-        if (name === 'firstName') {
-            if (value.trim() === '') {
-                return 'First Name is empty'
-            }
+        // if (name === 'firstName') {
+        //     if (value.trim() === '') {
+        //         return 'First Name is empty'
+        //     }
+        // }
+        // if (name === 'lastName') {
+        //     if (value.trim() === '') {
+        //         return 'Last Name is empty'
+        //     }
+        // }
+        // if (name === 'email') {
+        //     if (value.trim() === '') {
+        //         return 'Email is empty'
+        //     }
+        // }
+
+        const subSchema = { name: schema[name] }
+        console.log(subSchema)
+
+        const object = { name: value }
+
+        const result = Joi.validate(object, subSchema)
+
+        if (!result.error) {
+            return null;
         }
-        if (name === 'lastName') {
-            if (value.trim() === '') {
-                return 'Last Name is empty'
-            }
+        else {
+            return result.error.details[0].message
         }
-        if (name === 'email') {
-            if (value.trim() === '') {
-                return 'Email is empty'
-            }
-        }
+
+
+
 
     }
 
@@ -125,6 +142,7 @@ export function CustomerForm(props) {
             for (let item of result.error.details) {
                 errorsInForm[item.path[0]] = item.message;
             }
+            setErrors(errorsInForm)
             return errorsInForm;
         }
 

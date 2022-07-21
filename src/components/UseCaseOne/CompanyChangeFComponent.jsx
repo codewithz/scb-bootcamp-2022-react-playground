@@ -2,6 +2,8 @@ import { useState } from "react";
 
 // import {someFunction,someDataMember,someClass} from 'module';
 
+import '../../styles/my-css.css'
+
 export function CompanyChangeFComponent() {
 
     const [company, setCompany] = useState("Standard Chartered")
@@ -15,7 +17,7 @@ export function CompanyChangeFComponent() {
             <h2>State - Functional</h2>
             Company Name: <b>{company}</b>
             <br /><br />
-            <button onClick={changeCompany}>Change</button>
+            <button className="button" onClick={changeCompany}>Change</button>
         </div>
     )
 }
