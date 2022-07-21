@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export function Products() {
 
@@ -18,7 +19,11 @@ export function Products() {
                 {
                     products.map(
                         (product) =>
-                            <li key={product.id}>{product.name}</li>
+                            <li key={product.id}>
+                                <Link to={`/products/${product.id}`}>
+                                    {product.name}
+                                </Link>
+                            </li>
                     )
                 }
             </ul>
