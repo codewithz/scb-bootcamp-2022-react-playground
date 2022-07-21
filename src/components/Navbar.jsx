@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom"
+
 export function Navbar() {
     return (
 
         <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-            <a class="navbar-brand" href="/">Standard Chartered</a>
+            <Link className="navbar-brand" to="/">Standard Chartered</Link>
             <button
                 class="navbar-toggler"
                 type="button"
@@ -17,18 +19,20 @@ export function Navbar() {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/"
-                        >Home <span class="sr-only">(current)</span></a
-                        >
+                        {/* <a class="nav-link" href="/">Home </a> */}
+                        <Link className="nav-link" to="/">Home </Link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/products">Products</a>
+                        {/* <a class="nav-link" href="/products">Products</a> */}
+                        <Link className="nav-link" to="/products">Products</Link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/posts/2022/02">Posts</a>
+                        {/* <a class="nav-link" href="/posts/2022/02">Posts</a> */}
+                        <Link className="nav-link" to="/posts/2022/02">Posts</Link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin-dashboard">Admin</a>
+                        {/* <a class="nav-link" href="/admin-dashboard">Admin</a> */}
+                        <Link className="nav-link" to="/admin-dashboard">Admin</Link>
                     </li>
 
                 </ul>

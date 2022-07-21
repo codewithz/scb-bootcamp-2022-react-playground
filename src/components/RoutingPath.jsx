@@ -12,7 +12,7 @@ export function RoutingPath() {
                 <Route path="/products" component={Products} />
                 <Route path="/posts" component={Posts} />
                 <Route path="/admin-dashboard" component={AdminDashboard} />
-                <Route path="/" component={Home} />
+                <Route path="/" component={Home} exact />
             </Switch>
         </div>
     )
