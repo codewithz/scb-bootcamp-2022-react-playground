@@ -1,21 +1,20 @@
-import logo from './logo.svg';
+
 import './App.css';
-import { UseCaseOneHome } from './components/UseCaseOne/UseCaseOneHome';
-import { UseCaseTwoHome } from './components/UseCaseTwo/UseCaseTwoHome';
 import { Navbar } from './components/Navbar';
-import { UseCaseThreeHome } from './components/UseCaseThree/UseCaseThreeHome';
+import { BrowserRouter, Route } from 'react-router-dom'
+import { RoutingPath } from './components/RoutingPath';
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <h1>WELCOME TO Standard Chartered React Application</h1>
-      <hr />
-      {/* <UseCaseOneHome /> */}
-      {/* <UseCaseTwoHome /> */}
-      <UseCaseThreeHome />
+    <BrowserRouter>
+      <div className="App">
+        <Navbar />
+        <h1>WELCOME TO Standard Chartered React Application</h1>
+        <hr />
+        <RoutingPath />
 
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
