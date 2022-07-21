@@ -3,43 +3,28 @@ import {
     notifyError, notifySuccess,
     notifyWarning, notifyInfo
 } from '../utilities/toastNotifications';
+import Joi from 'joi-browser'
+
 
 export function CustomerForm(props) {
 
-    const blankCustomer = { id: 0, firstName: '', lastName: '', email: '' }
+
+
+    const blankCustomer = { firstName: '', lastName: '', email: '' }
 
     const [customer, setCustomer] = useState(blankCustomer)
 
     const [errors, setErrors] = useState({})
 
-    // Event Handling
-    // const handleFirstName = (event) => {
-    //     console.log(event.target.name)
-    //     console.log(event.target.value)
+    // Joi ---- Schema Impl 
 
-    //     let customerClone = { ...customer }
-    //     customerClone["firstName"] = event.target.value
+    const schema = {
+        firstName: Joi.string().required(),
+        lastName: Joi.string().required(),
+        email: Joi.string().email().required()
+    }
 
-    //     setCustomer(customerClone)
-    // }
-    // const handleLastName = (event) => {
-    //     console.log(event.target.name)
-    //     console.log(event.target.value)
 
-    //     let customerClone = { ...customer }
-    //     customerClone["lastName"] = event.target.value
-
-    //     setCustomer(customerClone)
-    // }
-    // const handleEmail = (event) => {
-    //     console.log(event.target.name)
-    //     console.log(event.target.value)
-
-    //     let customerClone = { ...customer }
-    //     customerClone["email"] = event.target.value
-
-    //     setCustomer(customerClone)
-    // }
 
     // -------------- Refactoring -----------------------
 
@@ -108,21 +93,41 @@ export function CustomerForm(props) {
 
     const validateForm = () => {
 
-        const errors = {};
+        // const errors = {};
 
-        if (customer.firstName.trim() === '') {
-            errors.username = 'First Name is required'
+        // if (customer.firstName.trim() === '') {
+        //     errors.username = 'First Name is required'
+        // }
+
+        // if (customer.lastName.trim() === '') {
+        //     errors.lastName = 'Last Name is required'
+        // }
+
+        // if (customer.email.trim() === '') {
+        //     errors.email = 'Email is required'
+        // }
+
+        // return Object.keys(errors).length === 0 ? null : errors;
+
+        // const result=Joi.validate(whatToValidate,againstWhichSchema,extraOptions)
+        const options = { abortEarly: false }
+        const result = Joi.validate(customer, schema, options)
+
+        console.log('Result from Joi', result)
+
+        if (!result.error) {
+            return null;
+
+        }
+        else {
+            const errorsInForm = {};
+
+            for (let item of result.error.details) {
+                errorsInForm[item.path[0]] = item.message;
+            }
+            return errorsInForm;
         }
 
-        if (customer.lastName.trim() === '') {
-            errors.lastName = 'Last Name is required'
-        }
-
-        if (customer.email.trim() === '') {
-            errors.email = 'Email is required'
-        }
-
-        return Object.keys(errors).length === 0 ? null : errors;
     }
 
     return (
