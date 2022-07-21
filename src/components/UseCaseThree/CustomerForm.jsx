@@ -1,10 +1,16 @@
 import { useState } from "react"
+import {
+    notifyError, notifySuccess,
+    notifyWarning, notifyInfo
+} from '../utilities/toastNotifications';
 
 export function CustomerForm(props) {
 
     const blankCustomer = { id: 0, firstName: '', lastName: '', email: '' }
 
     const [customer, setCustomer] = useState(blankCustomer)
+
+    const [errors, setErrors] = useState({})
 
     // Event Handling
     // const handleFirstName = (event) => {
@@ -50,8 +56,39 @@ export function CustomerForm(props) {
 
     const handleCustomerSaved = (event) => {
         event.preventDefault()
+
+        const errorsInForms = validateForm();
+
+        if (errorsInForms) {
+            notifyError("Invalid Values in the form!!")
+            return;
+        }
+
+
+
+        // If everything is validated
         props.onCustomerSaved(customer)
         setCustomer(blankCustomer)
+        notifySuccess("Customer saved successfully")
+    }
+
+    const validateForm = () => {
+
+        const errors = {};
+
+        if (customer.firstName.trim() === '') {
+            errors.username = 'First Name is required'
+        }
+
+        if (customer.lastName.trim() === '') {
+            errors.lastName = 'Last Name is required'
+        }
+
+        if (customer.email.trim() === '') {
+            errors.email = 'Email is required'
+        }
+
+        return Object.keys(errors).length === 0 ? null : errors;
     }
 
     return (
@@ -68,6 +105,7 @@ export function CustomerForm(props) {
                         value={customer.firstName}
                         onChange={handleInput}
                     />
+                    <div className="alert alert-danger">Error Message</div>
                 </div>
                 <div className="form-group">
                     <input
@@ -78,6 +116,7 @@ export function CustomerForm(props) {
                         value={customer.lastName}
                         onChange={handleInput}
                     />
+                    <div className="alert alert-danger">Error Message</div>
                 </div>
 
 
@@ -90,6 +129,7 @@ export function CustomerForm(props) {
                         value={customer.email}
                         onChange={handleInput}
                     />
+                    <div className="alert alert-danger">Error Message</div>
                 </div>
                 <button className="btn btn-primary btn-sm m-2"
                     onClick={handleCustomerSaved}>
