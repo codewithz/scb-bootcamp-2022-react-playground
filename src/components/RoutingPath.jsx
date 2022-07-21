@@ -5,6 +5,8 @@ import { AdminDashboard } from './RoutingApp/admin/AdminDashboard';
 import { Home } from './RoutingApp/Home';
 import { ProductDetails } from './RoutingApp/ProductDetails';
 import { NotFound } from './RoutingApp/NotFound';
+import { AdminPosts } from './RoutingApp/admin/AdminPosts';
+import { AdminUsers } from './RoutingApp/admin/AdminUsers';
 
 export function RoutingPath() {
 
@@ -16,6 +18,7 @@ export function RoutingPath() {
                 <Route path="/posts/:year/:month?" component={Posts} />
                 <Route path="/admin-dashboard" component={AdminDashboard} />
                 <Route path="/not-found" component={NotFound} />
+
                 <Route path="/" component={Home} exact />
                 <Redirect to="/not-found" />
             </Switch>
