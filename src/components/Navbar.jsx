@@ -34,6 +34,30 @@ export function Navbar() {
                         {/* <a class="nav-link" href="/admin-dashboard">Admin</a> */}
                         <Link className="nav-link" to="/admin-dashboard">Admin</Link>
                     </li>
+                    <li class="nav-item">
+
+                        <Link
+                            className="nav-link"
+                            to="/use-case-one">
+                            UC-1
+                        </Link>
+                    </li>
+                    <li class="nav-item">
+
+                        <Link
+                            className="nav-link"
+                            to="/use-case-two">
+                            UC-2
+                        </Link>
+                    </li>
+                    <li class="nav-item">
+
+                        <Link
+                            className="nav-link"
+                            to="/use-case-three">
+                            UC-3
+                        </Link>
+                    </li>
 
                 </ul>
             </div>

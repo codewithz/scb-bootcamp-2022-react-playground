@@ -7,6 +7,9 @@ import { ProductDetails } from './RoutingApp/ProductDetails';
 import { NotFound } from './RoutingApp/NotFound';
 import { AdminPosts } from './RoutingApp/admin/AdminPosts';
 import { AdminUsers } from './RoutingApp/admin/AdminUsers';
+import { UseCaseOneHome } from './UseCaseOne/UseCaseOneHome';
+import { UseCaseTwoHome } from './UseCaseTwo/UseCaseTwoHome';
+import { UseCaseThreeHome } from './UseCaseThree/UseCaseThreeHome';
 
 export function RoutingPath() {
 
@@ -19,6 +22,16 @@ export function RoutingPath() {
                 <Route path="/admin-dashboard" component={AdminDashboard} />
                 <Route path="/not-found" component={NotFound} />
 
+                <Route path="/use-case-one">
+                    <UseCaseOneHome />
+                </Route>
+                <Route path="/use-case-two">
+                    <UseCaseTwoHome />
+                </Route>
+                <Route path="/use-case-three">
+                    <UseCaseThreeHome />
+                </Route>
+                <AdminDashboard />
                 <Route path="/" component={Home} exact />
                 <Redirect to="/not-found" />
             </Switch>
