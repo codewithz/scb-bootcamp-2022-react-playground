@@ -12,7 +12,7 @@ export function RoutingPath() {
             <Switch>
                 <Route path="/products/:id" component={ProductDetails} />
                 <Route path="/products" component={Products} />
-                <Route path="/posts" component={Posts} />
+                <Route path="/posts/:year/:month?" component={Posts} />
                 <Route path="/admin-dashboard" component={AdminDashboard} />
                 <Route path="/" component={Home} exact />
             </Switch>
