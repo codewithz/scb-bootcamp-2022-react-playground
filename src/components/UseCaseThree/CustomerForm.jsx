@@ -48,10 +48,44 @@ export function CustomerForm(props) {
         // console.log(event.target.value)
 
         const { name, value } = event.target; // Destructuring name and value from event.target
+
+        const errorsClone = { ...errors } // Taking clone of errors in state 
+        const errorMessage = validateProperty(name, value); //calling validate property to check my function
+
+        if (errorMessage) {  //If errorMessage is not null ex: firstName
+            errorsClone[name] = errorMessage //errorsClone[firstName]=errorMessage
+        }
+        else {
+            delete errorsClone[name] //delete errorsClone["firstName"]
+        }
+
+        setErrors(errorsClone) //set it back to state
+
+
         let customerClone = { ...customer }
         customerClone[name] = value;
 
         setCustomer(customerClone)
+    }
+
+    const validateProperty = (name, value) => {
+
+        if (name === 'firstName') {
+            if (value.trim() === '') {
+                return 'First Name is empty'
+            }
+        }
+        if (name === 'lastName') {
+            if (value.trim() === '') {
+                return 'Last Name is empty'
+            }
+        }
+        if (name === 'email') {
+            if (value.trim() === '') {
+                return 'Email is empty'
+            }
+        }
+
     }
 
     const handleCustomerSaved = (event) => {
@@ -105,7 +139,10 @@ export function CustomerForm(props) {
                         value={customer.firstName}
                         onChange={handleInput}
                     />
-                    <div className="alert alert-danger">Error Message</div>
+                    {
+                        errors.firstName &&
+                        <div className="alert alert-danger">{errors.firstName}</div>
+                    }
                 </div>
                 <div className="form-group">
                     <input
@@ -116,7 +153,10 @@ export function CustomerForm(props) {
                         value={customer.lastName}
                         onChange={handleInput}
                     />
-                    <div className="alert alert-danger">Error Message</div>
+                    {
+                        errors.lastName &&
+                        <div className="alert alert-danger">{errors.lastName}</div>
+                    }
                 </div>
 
 
@@ -129,7 +169,10 @@ export function CustomerForm(props) {
                         value={customer.email}
                         onChange={handleInput}
                     />
-                    <div className="alert alert-danger">Error Message</div>
+                    {
+                        errors.email &&
+                        <div className="alert alert-danger">{errors.email}</div>
+                    }
                 </div>
                 <button className="btn btn-primary btn-sm m-2"
                     onClick={handleCustomerSaved}>
