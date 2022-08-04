@@ -5,11 +5,12 @@ import {
 } from '../utilities/toastNotifications';
 import Joi from 'joi-browser'
 import axios from "axios";
+import config from '../../config.json';
 
 
 export function CustomerForm(props) {
 
-    const baseURL = "http://localhost:9099/api/v1/rpg/common";
+    const baseURL = config.baseURL;
 
     const blankCustomer = { id: 0, name: '', email: '', accountType: '' }
 

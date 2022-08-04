@@ -11,10 +11,12 @@ import {
     notifyWarning, notifyInfo
 } from '../utilities/toastNotifications';
 
+import config from '../../config.json';
+
 
 export function CustomerList() {
 
-    const baseURL = "http://localhost:9099/api/v1/rpg/common";
+    const baseURL = config.baseURL;
 
     const [customers, setCustomers] = useState(customerData);
     const [selectedCustomer, setSelectedCustomer] = useState(null);
