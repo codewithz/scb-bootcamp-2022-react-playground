@@ -6,8 +6,16 @@ export function UseEffectHome() {
     const [resourceType, setResourceType] = useState("posts");
 
     useEffect(() => {
-        console.log("component is loaded")
-    }, [])
+        fetch(`https://jsonplaceholder.typicode.com/${resourceType}`)
+            .then(response => response.json())
+            .then(json => console.log(json))
+
+        return () => {
+            // Clean up code is written here
+
+            console.log("Clean Up before the next iteration of useEffect")
+        }
+    }, [resourceType])
 
 
 
@@ -36,6 +44,8 @@ export function UseEffectHome() {
             <br />
             <br />
             <h3>{resourceType}</h3>
+
+
 
         </div>
     )
