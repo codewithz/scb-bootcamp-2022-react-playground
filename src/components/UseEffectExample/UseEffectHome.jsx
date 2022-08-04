@@ -2,9 +2,11 @@ import { useState, useEffect } from "react"
 
 export function UseEffectHome() {
 
+    console.log("render")
+
     useEffect(() => {
-        console.log("render")
-    })
+        console.log("resource type changed")
+    }, [resourceType])
 
     const [resourceType, setResourceType] = useState("posts");
 
