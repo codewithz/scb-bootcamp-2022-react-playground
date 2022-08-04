@@ -6,6 +6,11 @@ import customerData from './customers.json'
 
 import axios from 'axios';
 
+import {
+    notifyError, notifySuccess,
+    notifyWarning, notifyInfo
+} from '../utilities/toastNotifications';
+
 
 export function CustomerList() {
 
@@ -39,6 +44,23 @@ export function CustomerList() {
         setCustomers(customersClone)
     }
 
+    const deleteCustomer = async (event, id) => {
+        event.preventDefault();
+
+        alert(id);
+
+        const apiEndPoint = `${baseURL}/customers/${id}`;
+
+        const response = await axios.delete(apiEndPoint);
+
+        if (response.data.status === 200) {
+            notifySuccess("Customer Deleted Successfully!!");
+            getCustomers();
+        }
+
+
+    }
+
     return (
         <div>
             <p className="lead m-2">Customer List</p>
@@ -50,6 +72,7 @@ export function CustomerList() {
                         <th>Name</th>
                         <th>Account Type</th>
                         <th>Email</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,6 +86,19 @@ export function CustomerList() {
                                     <td>{customer.name}</td>
                                     <td>{customer.accountType}</td>
                                     <td>{customer.email}</td>
+                                    <td>
+                                        <button className="btn btn-warning btn-sm m-2">
+                                            Show
+                                        </button>
+                                        <button
+                                            className="btn btn-danger btn-sm m-2"
+                                            onClick={(event) => deleteCustomer(event, customer.id)}
+                                        >
+                                            Delete
+                                        </button>
+
+                                    </td>
+
                                 </tr>
                         )
                     }
