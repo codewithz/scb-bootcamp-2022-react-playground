@@ -7,8 +7,8 @@ export function CustomerDetails(props) {
             <p className="lead">Customer Details</p>
             <hr />
             <p>ID: {customer.id}</p>
-            <p>First Name: {customer.firstName}</p>
-            <p>Last Name: {customer.lastName}</p>
+            <p>Name: {customer.name}</p>
+            <p>Account Type: {customer.accountType}</p>
             <p>Email: {customer.email}</p>
 
         </div>

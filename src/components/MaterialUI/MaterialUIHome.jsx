@@ -30,7 +30,7 @@ export function MaterialUIHome() {
 
     return (
         <div>
-            <Typography variant="h2" gutterBottom component="div">
+            {/* <Typography variant="h2" gutterBottom component="div">
                 Material UI Home
             </Typography>
 
@@ -114,7 +114,7 @@ export function MaterialUIHome() {
                         <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
                 </FormControl>
-            </Box>
+            </Box> */}
         </div>
     )
 }

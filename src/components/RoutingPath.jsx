@@ -25,7 +25,7 @@ export function RoutingPath() {
                 <Route path="/admin-dashboard" component={AdminDashboard} />
                 <Route path="/not-found" component={NotFound} />
                 <Route path="/material-ui" component={MaterialUIHome} />
-                <Route path="/material-sign-in" component={SignInSide} />
+                {/* <Route path="/material-sign-in" component={SignInSide} /> */}
                 <Route path="/use-effect" component={UseEffectHome} />
 
 
