@@ -131,7 +131,7 @@ export function CustomerForm(props) {
             const response = await axios.post(apiEndPoint, customer);
             if (response.data.status === 201) {
                 notifySuccess("Customer Added Successfully");
-                clearForm();
+                clear();
             }
         }
         else {
@@ -140,7 +140,7 @@ export function CustomerForm(props) {
             const response = await axios.put(apiEndPoint, customer);
             if (response.data.status === 201) {
                 notifyWarning("Customer Updated Successfully");
-                clearForm();
+                clear();
             }
         }
 
@@ -195,6 +195,10 @@ export function CustomerForm(props) {
     const clearForm = (event) => {
         event.preventDefault();
         setCustomer(blankCustomer)
+    }
+
+    const clear = () => {
+        setCustomer(blankCustomer);
     }
 
     return (
