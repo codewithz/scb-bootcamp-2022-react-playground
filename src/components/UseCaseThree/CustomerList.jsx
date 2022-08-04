@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { CustomerDetails } from "./CustomerDetails";
 import { CustomerForm } from "./CustomerForm";
 import customerData from './customers.json'
-
-import axios from 'axios';
+import axios from "axios";
 
 import {
     notifyError, notifySuccess,
@@ -12,6 +11,8 @@ import {
 } from '../utilities/toastNotifications';
 
 import config from '../../config.json';
+
+import http from "../../services/HttpService";
 
 
 export function CustomerList() {
@@ -33,9 +34,14 @@ export function CustomerList() {
     }, [])
 
     const getCustomers = async () => {
-        const result = await axios.get(apiEndPoint);
-        console.log(result.data)
-        setCustomers(result.data.body)
+        try {
+            const result = await http.get(apiEndPoint);
+            console.log(result.data)
+            setCustomers(result.data.body)
+        }
+        catch (ex) {
+            // Expected Errors can be taken care here
+        }
     }
 
     const addCustomer = () => {
@@ -45,14 +51,14 @@ export function CustomerList() {
     const deleteCustomer = async (event, id) => {
         event.preventDefault();
 
-        alert(id);
+        //  alert(id);
 
         // const apiEndPoint = `${baseURL}/customers/${id}`;
-        const apiEndPoint = `${baseURL}/customers/20000`;
+        const apiEndPoint = `${baseURL}/customers-zartab/20000`;
 
         try {
 
-            const response = await axios.delete(apiEndPoint);
+            const response = await http.delete(apiEndPoint);
 
             if (response.data.status === 200) {
                 notifySuccess("Customer Deleted Successfully!!");
@@ -60,21 +66,11 @@ export function CustomerList() {
             }
         }
         catch (ex) {
-            console.log('ex.request', '--->', ex.request);
-            console.log('ex.response', '--->', ex.response);
 
-            // Expected [404:Not Found | 400: Bad Request] -- CLIENT ERRORS
-            // -- Display a specific message
             if (ex.response && ex.response.status === 404) {
                 notifyError(ex.response.data.message)
             }
 
-            //Unxecpected [Network Down | Server Down | Bug | DB Down]
-            // -- Log Them
-            // -- Display a generic message
-            else {
-                notifyError('🚨 Some unexpected error occured')
-            }
         }
 
 
