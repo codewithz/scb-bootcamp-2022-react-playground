@@ -47,13 +47,34 @@ export function CustomerList() {
 
         alert(id);
 
-        const apiEndPoint = `${baseURL}/customers/${id}`;
+        // const apiEndPoint = `${baseURL}/customers/${id}`;
+        const apiEndPoint = `${baseURL}/customers/20000`;
 
-        const response = await axios.delete(apiEndPoint);
+        try {
 
-        if (response.data.status === 200) {
-            notifySuccess("Customer Deleted Successfully!!");
-            getCustomers();
+            const response = await axios.delete(apiEndPoint);
+
+            if (response.data.status === 200) {
+                notifySuccess("Customer Deleted Successfully!!");
+                getCustomers();
+            }
+        }
+        catch (ex) {
+            console.log('ex.request', '--->', ex.request);
+            console.log('ex.response', '--->', ex.response);
+
+            // Expected [404:Not Found | 400: Bad Request] -- CLIENT ERRORS
+            // -- Display a specific message
+            if (ex.response && ex.response.status === 404) {
+                notifyError(ex.response.data.message)
+            }
+
+            //Unxecpected [Network Down | Server Down | Bug | DB Down]
+            // -- Log Them
+            // -- Display a generic message
+            else {
+                notifyError('🚨 Some unexpected error occured')
+            }
         }
 
 
