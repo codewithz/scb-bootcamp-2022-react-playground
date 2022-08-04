@@ -18,6 +18,7 @@ export function CustomerList() {
 
     const [customers, setCustomers] = useState(customerData);
     const [selectedCustomer, setSelectedCustomer] = useState(null);
+    const [id, setId] = useState(0);
 
     const onCustomerSelect = (customer) => {
         setSelectedCustomer(customer)
@@ -35,13 +36,8 @@ export function CustomerList() {
         setCustomers(result.data.body)
     }
 
-    const addCustomer = (newCustomer) => {
-        const totalCustomers = customers.length;
-        newCustomer.id = totalCustomers + 1;
-        let customersClone = [...customers];
-        customersClone.push(newCustomer)
-
-        setCustomers(customersClone)
+    const addCustomer = () => {
+        getCustomers();
     }
 
     const deleteCustomer = async (event, id) => {
@@ -87,7 +83,11 @@ export function CustomerList() {
                                     <td>{customer.accountType}</td>
                                     <td>{customer.email}</td>
                                     <td>
-                                        <button className="btn btn-warning btn-sm m-2">
+                                        <button
+
+                                            className="btn btn-warning btn-sm m-2"
+                                            onClick={() => setId(customer.id)}
+                                        >
                                             Show
                                         </button>
                                         <button
@@ -110,7 +110,9 @@ export function CustomerList() {
 
             <div className="row">
                 <div className="col-md-6 m-2">
-                    <CustomerForm onCustomerSaved={addCustomer} />
+                    <CustomerForm
+                        onCustomerSaved={addCustomer}
+                        id={id} />
                 </div>
 
 

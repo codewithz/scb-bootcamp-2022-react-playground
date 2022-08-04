@@ -1,27 +1,44 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
     notifyError, notifySuccess,
     notifyWarning, notifyInfo
 } from '../utilities/toastNotifications';
 import Joi from 'joi-browser'
+import axios from "axios";
 
 
 export function CustomerForm(props) {
 
+    const baseURL = "http://localhost:9099/api/v1/rpg/common";
 
-
-    const blankCustomer = { firstName: '', lastName: '', email: '' }
+    const blankCustomer = { id: 0, name: '', email: '', accountType: '' }
 
     const [customer, setCustomer] = useState(blankCustomer)
 
     const [errors, setErrors] = useState({})
 
+    useEffect(() => {
+
+        loadCustomer();
+
+    }, [props.id]);
+
+    const loadCustomer = async () => {
+        if (props.id > 0) {
+            const apiEndPoint = `${baseURL}/customers/${props.id}`;
+            const result = await axios.get(apiEndPoint);
+            console.log(result.data);
+            setCustomer(result.data.body);
+        }
+    }
+
     // Joi ---- Schema Impl 
 
     const schema = {
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
-        email: Joi.string().email().required()
+
+        name: Joi.string().required(),
+        email: Joi.string().email().required(),
+        accountType: Joi.string()
     }
 
 
@@ -74,7 +91,7 @@ export function CustomerForm(props) {
         const subSchema = { name: schema[name] }
         console.log(subSchema)
 
-        const object = { name: value }
+        const object = { [name]: value }
 
         const result = Joi.validate(object, subSchema)
 
@@ -90,10 +107,12 @@ export function CustomerForm(props) {
 
     }
 
-    const handleCustomerSaved = (event) => {
+    const handleCustomerSaved = async (event) => {
         event.preventDefault()
 
-        const errorsInForms = validateForm();
+        // const errorsInForms = validateForm();
+
+        const errorsInForms = null;
 
         if (errorsInForms) {
             notifyError("Invalid Values in the form!!")
@@ -103,7 +122,32 @@ export function CustomerForm(props) {
 
 
         // If everything is validated
-        props.onCustomerSaved(customer)
+
+        // If customer.id === 0 --> trying to add a new customer
+
+        if (customer.id === 0) {
+            const apiEndPoint = `${baseURL}/customers`
+            customer.accountCreationDate = '2022-01-02';
+            const response = await axios.post(apiEndPoint, customer);
+            if (response.data.status === 201) {
+                notifySuccess("Customer Added Successfully");
+                clearForm();
+            }
+        }
+        else {
+            const apiEndPoint = `${baseURL}/customers/${customer.id}`
+            customer.accountCreationDate = '2022-01-02';
+            const response = await axios.put(apiEndPoint, customer);
+            if (response.data.status === 201) {
+                notifyWarning("Customer Updated Successfully");
+                clearForm();
+            }
+        }
+
+
+
+
+        props.onCustomerSaved()
         setCustomer(blankCustomer)
         notifySuccess("Customer saved successfully")
     }
@@ -148,37 +192,42 @@ export function CustomerForm(props) {
 
     }
 
+    const clearForm = (event) => {
+        event.preventDefault();
+        setCustomer(blankCustomer)
+    }
+
     return (
         <div>
-            <p className="lead">Add Customer</p>
+            <p className="lead">Add/Update Customer</p>
             <hr />
             <form className="ui form">
                 <div className="form-group">
                     <input
                         type="text"
-                        name="firstName"
+                        name="name"
                         className="form-control"
-                        placeholder="Enter First Name"
-                        value={customer.firstName}
+                        placeholder="Enter Name"
+                        value={customer.name}
                         onChange={handleInput}
                     />
                     {
-                        errors.firstName &&
-                        <div className="alert alert-danger">{errors.firstName}</div>
+                        errors.name &&
+                        <div className="alert alert-danger">{errors.name}</div>
                     }
                 </div>
                 <div className="form-group">
                     <input
                         type="text"
-                        name="lastName"
+                        name="accountType"
                         className="form-control"
-                        placeholder="Enter Last Name"
-                        value={customer.lastName}
+                        placeholder="Enter Account Type"
+                        value={customer.accountType}
                         onChange={handleInput}
                     />
                     {
-                        errors.lastName &&
-                        <div className="alert alert-danger">{errors.lastName}</div>
+                        errors.accountType &&
+                        <div className="alert alert-danger">{errors.accountType}</div>
                     }
                 </div>
 
@@ -198,8 +247,12 @@ export function CustomerForm(props) {
                     }
                 </div>
                 <button className="btn btn-primary btn-sm m-2"
-                    onClick={handleCustomerSaved}>
-                    Save
+                    onClick={(event) => handleCustomerSaved(event)}>
+                    Save / Update
+                </button>
+                <button className="btn btn-warning btn-sm m-2"
+                    onClick={clearForm}>
+                    Clear
                 </button>
             </form>
         </div>
