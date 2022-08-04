@@ -12,6 +12,7 @@ import { UseCaseTwoHome } from './UseCaseTwo/UseCaseTwoHome';
 import { UseCaseThreeHome } from './UseCaseThree/UseCaseThreeHome';
 import { MaterialUIHome } from './MaterialUI/MaterialUIHome';
 import SignInSide from './MaterialUI/SignIn';
+import { UseEffectHome } from "./UseEffectExample/UseEffectHome";
 
 export function RoutingPath() {
 
@@ -25,6 +26,8 @@ export function RoutingPath() {
                 <Route path="/not-found" component={NotFound} />
                 <Route path="/material-ui" component={MaterialUIHome} />
                 <Route path="/material-sign-in" component={SignInSide} />
+                <Route path="/use-effect" component={UseEffectHome} />
+
 
                 <Route path="/use-case-one">
                     <UseCaseOneHome />

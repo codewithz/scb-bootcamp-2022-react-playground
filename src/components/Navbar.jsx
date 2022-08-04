@@ -74,6 +74,14 @@ export function Navbar() {
                             Material UI- SIgn In
                         </Link>
                     </li>
+                    <li class="nav-item">
+
+                        <Link
+                            className="nav-link"
+                            to="/use-effect">
+                            Use Effect
+                        </Link>
+                    </li>
 
                 </ul>
             </div>
