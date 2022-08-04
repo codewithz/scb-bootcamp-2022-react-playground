@@ -2,13 +2,13 @@ import { useState, useEffect } from "react"
 
 export function UseEffectHome() {
 
-    console.log("render")
-
-    useEffect(() => {
-        console.log("resource type changed")
-    }, [resourceType])
 
     const [resourceType, setResourceType] = useState("posts");
+
+    useEffect(() => {
+        console.log("component is loaded")
+    }, [])
+
 
 
     return (
